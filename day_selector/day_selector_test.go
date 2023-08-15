@@ -71,7 +71,7 @@ func TestSelectDay(t *testing.T) {
 		}
 	})
 
-	t.Run("Numbers should be random", func(t *testing.T) {
+	t.Run("numbers should be random", func(t *testing.T) {
 		t.Helper()
 
 		spyRandom := SpyRand{}
