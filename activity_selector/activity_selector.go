@@ -2,18 +2,18 @@ package activityselector
 
 import "math/rand"
 
-var ActivityPool = []string{"foo", "bar"}
-
 type IRandomActivitySelector interface {
 	randomActivity() string
 }
 
-type randomActivitySelector struct{}
+type randomActivitySelector struct {
+	pool []string
+}
 
 func (r *randomActivitySelector) randomActivity() string {
-	limit := len(ActivityPool)
+	limit := len(r.pool)
 	index := rand.Intn(limit)
-	return ActivityPool[index]
+	return r.pool[index]
 }
 
 func selectActivities(activityNum int, ra IRandomActivitySelector) []string {
@@ -24,6 +24,6 @@ func selectActivities(activityNum int, ra IRandomActivitySelector) []string {
 	return activityList
 }
 
-func SelectActivities(activityNum int) []string {
-	return selectActivities(activityNum, &randomActivitySelector{})
+func SelectActivities(activityNum int, activityPool []string) []string {
+	return selectActivities(activityNum, &randomActivitySelector{activityPool})
 }

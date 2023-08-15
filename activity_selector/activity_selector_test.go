@@ -7,27 +7,31 @@ import (
 )
 
 func TestActivitySelector(t *testing.T) {
-	got := SelectActivities(1)
+	var ActivityPool = []string{"foo", "bar"}
 
-	if len(got) != 1 {
-		t.Errorf("Expected to select one string, got %s", got)
-	}
-
-	got = SelectActivities(2)
-
-	if len(got) != 2 {
-		t.Errorf("Expected to select two strings, got %s", got)
-	}
+	t.Run("activities should be selected",func(t *testing.T) {
+		got := SelectActivities(1, ActivityPool)
+	
+		if len(got) != 1 {
+			t.Errorf("Expected to select one string, got %s", got)
+		}
+	
+		got = SelectActivities(2, ActivityPool)
+	
+		if len(got) != 2 {
+			t.Errorf("Expected to select two strings, got %s", got)
+		}
+	})
 
 	t.Run("activities should be from list", func(t *testing.T) {
 		t.Helper()
 
-		got := SelectActivities(2)
+		got := SelectActivities(2, ActivityPool)
 
 		assertValueInRange(got, ActivityPool, t)
 
 		ActivityPool = []string{"bar"}
-		got = SelectActivities(2)
+		got = SelectActivities(2, ActivityPool)
 
 		assertValueInRange(got, ActivityPool, t)
 	})
